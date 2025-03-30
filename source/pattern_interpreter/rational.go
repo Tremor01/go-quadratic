@@ -4,20 +4,28 @@ package pattern_interpreter
 import ("slices")
 
 
-type RationalInterpreter struct {}
+type RationalInterpreter struct {
+	integerInterpreter IntegerInterpreter
+	digitsInterpreter DigitsInterpreter
+}
+
+func NewRationalInterpreter() RationalInterpreter {
+	return RationalInterpreter{
+		integerInterpreter: NewIntegerInterpreter(),
+		digitsInterpreter: NewDigitsInterpreter(),
+	}
+}
 
 func (ri RationalInterpreter) Interpret(ctx *Context) bool {
-	integerInterpreter := IntegerInterpreter{}
-	if (!integerInterpreter.Interpret(ctx)) {
+	if (!ri.integerInterpreter.Interpret(ctx)) {
 		return false
 	}
-	
+
 	if (ctx.IsEnd()) {return true}
 
 	if (!slices.Contains(POINT, ctx.Read())) {
 		return false
 	}
 	ctx.Next()
-	digitsInterpreter := DigitsInterpreter{}
-	return digitsInterpreter.Interpret(ctx)
+	return ri.digitsInterpreter.Interpret(ctx)
 }

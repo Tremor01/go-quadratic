@@ -7,8 +7,8 @@ import (
 
 
 func main() {
-	ctx := pi.NewContext("0.123")
-	inter := pi.RationalInterpreter{}
-	fmt.Println(inter.Interpret(ctx))
+	ctx := pi.NewContext("1.123")
+	inter := pi.NewRationalInterpreter()
+	fmt.Println(inter.Interpret(ctx), ctx.IsEnd())
 }
 

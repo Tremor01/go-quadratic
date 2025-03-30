@@ -6,6 +6,10 @@ import ("slices")
 
 type DigitInterpreter struct {}
 
+func NewDigitInterpreter() DigitInterpreter {
+	return DigitInterpreter{}
+}
+
 func (di DigitInterpreter) Interpret(ctx *Context) bool {
 	if ctx.IsEnd() {
 		return false
@@ -14,17 +18,21 @@ func (di DigitInterpreter) Interpret(ctx *Context) bool {
 }
 
 
-type DigitsInterpreter struct {}
+type DigitsInterpreter struct {
+	digitInterpreter DigitInterpreter
+}
+
+func NewDigitsInterpreter() DigitsInterpreter {
+	return DigitsInterpreter{digitInterpreter: NewDigitInterpreter()}
+}
 
 func (di DigitsInterpreter) Interpret(ctx *Context) bool {
-	digitInterpreter := DigitInterpreter{}
-	var is_digit bool = digitInterpreter.Interpret(ctx)
+	var is_digit bool = di.digitInterpreter.Interpret(ctx)
 	if (!is_digit) {return false}
 	
 	for is_digit && !ctx.IsEnd() {
 		ctx.Next()
-		is_digit = digitInterpreter.Interpret(ctx)
+		is_digit = di.digitInterpreter.Interpret(ctx)
 	}
 	return true
 }
-

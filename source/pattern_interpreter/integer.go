@@ -4,7 +4,13 @@ package pattern_interpreter
 import ("slices")
 
 
-type IntegerInterpreter struct {}
+type IntegerInterpreter struct {
+	natruralInterpreter NaturalInterpeter
+}
+
+func NewIntegerInterpreter() IntegerInterpreter {
+	return IntegerInterpreter{natruralInterpreter: NewNaturalInterpreter()}
+}
 
 func (ii IntegerInterpreter) Interpret(ctx *Context) bool {
 	if (ctx.IsEnd()) {return false}
@@ -17,8 +23,6 @@ func (ii IntegerInterpreter) Interpret(ctx *Context) bool {
 		ctx.Next()
 		return true
 	}
-
-	natruralInterpreter := NaturalInterpeter{}
-	return natruralInterpreter.Interpret(ctx)
+	return ii.natruralInterpreter.Interpret(ctx)
 } 
 

@@ -6,7 +6,11 @@ import ("slices")
 
 type ExpInterpreter struct {}
 
-func (ri ExpInterpreter) Interpret(ctx *Context) bool {
+func NewExpInterpreter() ExpInterpreter {
+	return ExpInterpreter{}
+}
+
+func (ei ExpInterpreter) Interpret(ctx *Context) bool {
 	if (ctx.IsEnd()) {return false}
 
 	if (!slices.Contains(EXP, ctx.Read())) {
