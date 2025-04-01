@@ -4,35 +4,27 @@ package pattern_interpreter
 import ("slices")
 
 
-type DigitInterpreter struct {}
-
-func NewDigitInterpreter() DigitInterpreter {
-	return DigitInterpreter{}
-}
-
-func (di DigitInterpreter) Interpret(ctx *Context) bool {
-	if ctx.IsEnd() {
-		return false
-	}
-	return slices.Contains(NOT_ZERO, ctx.Read()) || slices.Contains(ZERO, ctx.Read()) 
-}
-
-
-type DigitsInterpreter struct {
-	digitInterpreter DigitInterpreter
-}
+type DigitsInterpreter struct {}
 
 func NewDigitsInterpreter() DigitsInterpreter {
-	return DigitsInterpreter{digitInterpreter: NewDigitInterpreter()}
+	return DigitsInterpreter{}
 }
 
 func (di DigitsInterpreter) Interpret(ctx *Context) bool {
-	var is_digit bool = di.digitInterpreter.Interpret(ctx)
-	if (!is_digit) {return false}
-	
-	for is_digit && !ctx.IsEnd() {
-		ctx.Next()
-		is_digit = di.digitInterpreter.Interpret(ctx)
-	}
-	return true
+    if ctx.IsEnd() || !isDigit(ctx.Read()) {  
+        return false
+    }
+    
+    for !ctx.IsEnd() {
+        ctx.Next()
+        if ctx.IsEnd() || !isDigit(ctx.Read()) {
+            break
+        }
+    }
+    return true
+}
+
+
+func isDigit(r rune) bool {
+    return slices.Contains(NOT_ZERO, r) || slices.Contains(ZERO, r)
 }

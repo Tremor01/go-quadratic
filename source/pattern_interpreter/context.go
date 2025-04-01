@@ -22,7 +22,8 @@ R := Z POINT DIGIT* | Z
 R_SHORT1 := [SIGNS] POINT DIGIT*
 R_SHORT2 := Z POINT
 
-FLOAT := R | SHORT_R1 | SHORT_R2 [EXP_TOKEN]
+NUMBER := R | SHORT_R1 | SHORT_R2 [EXP_TOKEN]
+
 */
 
 
@@ -47,15 +48,23 @@ func NewContext(row string) *Context {
 		str: row,
 	}
 }
+
 func (c Context) Read() rune {
 	return c.row[c.pos]
 }
+
 func (c Context) IsEnd() bool {
 	return c.pos == len(c.row)
 }
+
 func (c *Context) Next() {
 	c.pos++
 }
-func (c *Context) GetRow() string {
+
+func (c Context) GetRow() string {
 	return c.str
+}
+
+func (c *Context) ResetPos() {
+	c.pos = 0
 }

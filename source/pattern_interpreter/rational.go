@@ -21,11 +21,10 @@ func (ri RationalInterpreter) Interpret(ctx *Context) bool {
 		return false
 	}
 
-	if (ctx.IsEnd()) {return true}
-
-	if (!slices.Contains(POINT, ctx.Read())) {
-		return false
+	if (ctx.IsEnd() || !slices.Contains(POINT, ctx.Read())) {
+		return true
 	}
+
 	ctx.Next()
 	return ri.digitsInterpreter.Interpret(ctx)
 }
