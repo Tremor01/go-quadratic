@@ -5,6 +5,9 @@ package pattern_interpreter
 * := one or more repeats for token
 [TOKEN] := optional token
 
+NAN := n a n
+INF := i n f
+
 NOT_ZERO := 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 ZERO := 0
 DIGIT := NOT_ZERO | ZERO
@@ -34,6 +37,8 @@ var SIGNS = []rune {'+', '-'}
 var POINT = []rune {'.'}
 var EXP = []rune {'e', 'E'}
 
+var NAN = []rune {'n', 'a', 'n'}
+var INF = []rune {'i', 'n', 'f'}
 
 type Context struct {
 	row []rune
