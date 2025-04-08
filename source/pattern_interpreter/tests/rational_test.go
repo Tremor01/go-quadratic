@@ -14,8 +14,8 @@ func Test1RationalInterpreter(t *testing.T) {
 	rationalInterpreter := pi.NewRationalInterpreter()
 	for _, number := range numbers {
 		ctx := pi.NewContext(number)
-		rationalInterpreter.Interpret(ctx)
-		if (ctx.IsEnd()) {continue}
+		res := rationalInterpreter.Interpret(ctx)
+		if res == ctx.Len() {continue}
 		t.Error()
 	}
 }
@@ -29,8 +29,8 @@ func Test2RationalInterpreter(t *testing.T) {
 	rationalInterpreter := pi.NewRationalInterpreter()
 	for _, number := range numbers {
 		ctx := pi.NewContext(number)
-		rationalInterpreter.Interpret(ctx)
-		if (ctx.IsEnd()) {continue}
+		res := rationalInterpreter.Interpret(ctx)
+		if res == ctx.Len() {continue}
 		t.Errorf("Error contex: %s", number)
 	}
 }
@@ -45,7 +45,7 @@ func Test3RationalInterpreter(t *testing.T) {
 	for _, error := range errors {
 		ctx := pi.NewContext(error)
 		res := rationalInterpreter.Interpret(ctx)
-		if (ctx.IsEnd() && res) {
+		if ctx.Len() == res {
 			t.Errorf("Error contex: %s", error)
 		}
 	}

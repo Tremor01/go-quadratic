@@ -17,24 +17,28 @@ func NewNumberInterpreter() NumberInterpreter {
 	}
 }
 
-func (fi NumberInterpreter) Interpret(ctx *Context) bool {
-	if fi.rationalInterpreter.Interpret(ctx) {
+func (fi NumberInterpreter) Interpret(ctx Context) int {
+	pos := fi.rationalInterpreter.Interpret(ctx)
+	if pos > -1 {
+		ctx = ctx.SetPos(pos)
 		return fi.is_exp(ctx)
 	}
-	ctx.ResetPos()
-	if fi.rationalShortFirstInterpreter.Interpret(ctx) {
+	pos = fi.rationalShortFirstInterpreter.Interpret(ctx)
+	if pos > -1 {
+		ctx = ctx.SetPos(pos)
 		return fi.is_exp(ctx)
 	}
-	ctx.ResetPos()
-	if fi.rationalShortSecondInterpreter.Interpret(ctx) {
+	pos = fi.rationalShortSecondInterpreter.Interpret(ctx)
+	if pos > -1 {
+		ctx = ctx.SetPos(pos)
 		return fi.is_exp(ctx)
 	}
-	return false
+	return -1
 }
 
-func (fi NumberInterpreter) is_exp(ctx *Context) bool {
+func (fi NumberInterpreter) is_exp(ctx Context) int {
 	if ctx.IsEnd() {
-		return true
+		return ctx.pos
 	}
 	return fi.expInterpreter.Interpret(ctx)
 }

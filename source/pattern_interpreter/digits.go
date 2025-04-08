@@ -10,9 +10,9 @@ func NewDigitsInterpreter() DigitsInterpreter {
 	return DigitsInterpreter{}
 }
 
-func (di DigitsInterpreter) Interpret(ctx *Context) bool {
+func (di DigitsInterpreter) Interpret(ctx Context) int {
     if ctx.IsEnd() || !isDigit(ctx.Read()) {  
-        return false
+        return -1
     }
     
     for !ctx.IsEnd() {
@@ -21,7 +21,7 @@ func (di DigitsInterpreter) Interpret(ctx *Context) bool {
             break
         }
     }
-    return true
+    return ctx.GetPos()
 }
 
 

@@ -12,7 +12,7 @@ func Test1RationalShortFirstInterpreter(t *testing.T) {
 	for _, r := range rs {
 		ctx := pi.NewContext(r)
 		res := rationlInterpreter.Interpret(ctx)
-		if (res) {continue}
+		if res == ctx.Len() {continue}
 		t.Errorf("Error contex: %s", r)
 	}
 }
@@ -27,7 +27,7 @@ func Test2RationalShortFirstInterpreter(t *testing.T) {
 	for _, error := range errors {
 		ctx := pi.NewContext(error)
 		res := rationlInterpreter.Interpret(ctx)
-		if (ctx.IsEnd() && res) {
+		if res == ctx.Len() {
 			t.Errorf("Error contex: %s", error)
 		}
 	}

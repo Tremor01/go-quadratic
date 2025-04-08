@@ -7,18 +7,18 @@ func NewInfInterpreter() InfInterpreter {
 	return InfInterpreter{}
 }
 
-func (ni InfInterpreter) Interpret(ctx *Context) bool {
-	if ctx.IsEnd() {return false}
+func (ni InfInterpreter) Interpret(ctx Context) int {
+	if ctx.IsEnd() {return -1}
 	
 	var pos int = 0
 	for pos < len(INF) {
 		if ctx.IsEnd() || INF[pos] != ctx.Read() {
-			return false
+			return -1
 		}
 		ctx.Next()
 		pos++
 	}
-	return true
+	return ctx.GetPos()
 }
 
 

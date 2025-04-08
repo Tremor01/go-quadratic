@@ -12,7 +12,7 @@ func Test1NaturalInterpreter(t *testing.T) {
 	for _, digit := range digits {
 		ctx := pi.NewContext(digit)
 		res := naturalInterpreter.Interpret(ctx)
-		if (res) {
+		if res == ctx.Len() {
 			continue
 		}
 		t.Error()
@@ -26,7 +26,7 @@ func Test2NaturalInterpreter(t *testing.T) {
 	for _, digit := range digits {
 		ctx := pi.NewContext(digit)
 		res := naturalInterpreter.Interpret(ctx)
-		if (res) {
+		if res == ctx.Len() {
 			continue
 		}
 		t.Error()
@@ -39,8 +39,8 @@ func Test3NaturalInterpreter(t *testing.T) {
 	naturalInterpreter := pi.NewNaturalInterpreter()
 	for _, error := range errors {
 		ctx := pi.NewContext(error)
-		naturalInterpreter.Interpret(ctx)
-		if (ctx.IsEnd()) {
+		res := naturalInterpreter.Interpret(ctx)
+		if ctx.Len() == res {
 			t.Errorf("Error contex: %s", error)
 		}
 	}

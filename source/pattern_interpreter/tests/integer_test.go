@@ -11,8 +11,9 @@ func Test1IntegerInterpreter(t *testing.T) {
 	integerInterpreter := pi.NewIntegerInterpreter()
 	for _, number := range numbers {
 		ctx := pi.NewContext(number)
-		integerInterpreter.Interpret(ctx)
-		if (ctx.IsEnd()) {
+		
+		pos := integerInterpreter.Interpret(ctx)
+		if pos == ctx.Len() {
 			continue
 		}
 		t.Error()
@@ -25,8 +26,8 @@ func Test2IntegerInterpreter(t *testing.T) {
 	integerInterpreter := pi.NewIntegerInterpreter()
 	for _, number := range numbers {
 		ctx := pi.NewContext(number)
-		integerInterpreter.Interpret(ctx)
-		if (ctx.IsEnd()) {
+		pos := integerInterpreter.Interpret(ctx)
+		if pos == ctx.Len() {
 			continue
 		}
 		t.Error()
@@ -39,8 +40,8 @@ func Test3IntegerInterpreter(t *testing.T) {
 	integerInterpreter := pi.NewIntegerInterpreter()
 	for _, error := range errors {
 		ctx := pi.NewContext(error)
-		integerInterpreter.Interpret(ctx)
-		if (ctx.IsEnd()) {
+		pos := integerInterpreter.Interpret(ctx)
+		if pos == ctx.Len() {
 			t.Errorf("Error contex: %s", error)
 		}
 	}
@@ -56,7 +57,8 @@ func Test4IntegerInterpreter(t *testing.T) {
 	for _, v := range valid {
 		ctx := pi.NewContext(v)
 		integerInterpreter.Interpret(ctx)
-		if (ctx.IsEnd()) {
+		pos := integerInterpreter.Interpret(ctx)
+		if pos == ctx.Len() {
 			continue
 		}
 		t.Errorf("Error contex: %s", v)
@@ -71,8 +73,8 @@ func Test5IntegerInterpreter(t *testing.T) {
 	integerInterpreter := pi.NewIntegerInterpreter()
 	for _, error := range errors {
 		ctx := pi.NewContext(error)
-		res := integerInterpreter.Interpret(ctx)
-		if (res && ctx.IsEnd()) {
+		pos := integerInterpreter.Interpret(ctx)
+		if pos == ctx.Len() {
 			t.Errorf("Error contex: %s", error)
 		}
 	}

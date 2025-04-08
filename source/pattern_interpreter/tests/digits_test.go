@@ -11,8 +11,8 @@ func Test1DigitsInterpreter(t *testing.T) {
 	digitsInterpreter := pi.NewDigitsInterpreter()
 	for _, digit := range digits {
 		ctx := pi.NewContext(digit)
-		res := digitsInterpreter.Interpret(ctx)
-		if (res) {
+		pos := digitsInterpreter.Interpret(ctx)
+		if pos == ctx.Len() {
 			continue
 		}
 		t.Error()
@@ -25,8 +25,8 @@ func Test2DigitsInterpreter(t *testing.T) {
 	digitsInterpreter := pi.NewDigitsInterpreter()
 	for _, digit := range digits {
 		ctx := pi.NewContext(digit)
-		res := digitsInterpreter.Interpret(ctx)
-		if (res) {
+		pos := digitsInterpreter.Interpret(ctx)
+		if pos == ctx.Len() {
 			continue
 		}
 		t.Error()
@@ -39,8 +39,8 @@ func Test3DigitsInterpreter(t *testing.T) {
 	digitsInterpreter := pi.NewDigitsInterpreter()
 	for _, error := range errors {
 		ctx := pi.NewContext(error)
-		digitsInterpreter.Interpret(ctx)
-		if (ctx.IsEnd()) {
+		pos := digitsInterpreter.Interpret(ctx)
+		if (pos == ctx.Len()) {
 			t.Error()
 		}
 	}

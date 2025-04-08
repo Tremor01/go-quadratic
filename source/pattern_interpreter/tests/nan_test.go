@@ -12,7 +12,7 @@ func Test1NanInterpreter(t *testing.T) {
 	ctx := pi.NewContext("nan")
 	interpret := pi.NewNanInterpreter()
 	res := interpret.Interpret(ctx)
-	if !res {
+	if res != ctx.Len() {
 		t.Error()
 	}
 }
@@ -24,7 +24,7 @@ func Test2NanInterpreter(t *testing.T) {
 	for _, error := range errors {
 		ctx := pi.NewContext(error)
 		res := interpret.Interpret(ctx)
-		if (ctx.IsEnd() && res) {
+		if ctx.Len() == res {
 			t.Errorf("Error contex: %s", error)
 		}
 	}

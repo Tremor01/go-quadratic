@@ -12,7 +12,7 @@ func Test1InfInterpreter(t *testing.T) {
 	ctx := pi.NewContext("inf")
 	interpret := pi.NewInfInterpreter()
 	res := interpret.Interpret(ctx)
-	if !res {
+	if res == -1 {
 		t.Error()
 	}
 }
@@ -24,7 +24,7 @@ func Test2InfInterpreter(t *testing.T) {
 	for _, error := range errors {
 		ctx := pi.NewContext(error)
 		res := interpret.Interpret(ctx)
-		if (ctx.IsEnd() && res) {
+		if (ctx.Len() == res) {
 			t.Errorf("Error contex: %s", error)
 		}
 	}

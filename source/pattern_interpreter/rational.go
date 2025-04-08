@@ -16,15 +16,14 @@ func NewRationalInterpreter() RationalInterpreter {
 	}
 }
 
-func (ri RationalInterpreter) Interpret(ctx *Context) bool {
-	if (!ri.integerInterpreter.Interpret(ctx)) {
-		return false
+func (ri RationalInterpreter) Interpret(ctx Context) int {
+	pos := ri.integerInterpreter.Interpret(ctx)
+	if (pos == -1) {
+		return -1
 	}
-
-	if (ctx.IsEnd() || !slices.Contains(POINT, ctx.Read())) {
-		return true
+	if pos == ctx.Len() || !slices.Contains(POINT, ctx.ReadAt(pos)) {
+		return pos
 	}
-
-	ctx.Next()
+	ctx = ctx.SetPos(pos + 1)
 	return ri.digitsInterpreter.Interpret(ctx)
 }

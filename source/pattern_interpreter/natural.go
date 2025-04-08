@@ -12,9 +12,9 @@ func NewNaturalInterpreter() NaturalInterpeter {
 	return NaturalInterpeter{digitsInterpreter: NewDigitsInterpreter()}
 }
 
-func (ni NaturalInterpeter) Interpret(ctx *Context) bool {
+func (ni NaturalInterpeter) Interpret(ctx Context) int {
 	if (ctx.IsEnd() || slices.Contains(ZERO, ctx.Read())) {
-		return false
+		return -1
 	}
 	return ni.digitsInterpreter.Interpret(ctx)
 }

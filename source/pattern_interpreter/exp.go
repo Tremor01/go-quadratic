@@ -10,14 +10,14 @@ func NewExpInterpreter() ExpInterpreter {
 	return ExpInterpreter{}
 }
 
-func (ei ExpInterpreter) Interpret(ctx *Context) bool {
-	if (ctx.IsEnd()) {return false}
+func (ei ExpInterpreter) Interpret(ctx Context) int {
+	if (ctx.IsEnd()) {return -1}
 
 	if (!slices.Contains(EXP, ctx.Read())) {
-		return false
+		return -1
 	}
 	ctx.Next()
-	if (ctx.IsEnd()) {return false}
+	if (ctx.IsEnd()) {return -1}
 	
 	if (slices.Contains(SIGNS, ctx.Read())) {
 		ctx.Next()

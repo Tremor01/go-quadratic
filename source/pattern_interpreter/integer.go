@@ -12,8 +12,8 @@ func NewIntegerInterpreter() IntegerInterpreter {
 	return IntegerInterpreter{natruralInterpreter: NewNaturalInterpreter()}
 }
 
-func (ii IntegerInterpreter) Interpret(ctx *Context) bool {
-	if (ctx.IsEnd()) {return false}
+func (ii IntegerInterpreter) Interpret(ctx Context) int {
+	if (ctx.IsEnd()) {return -1}
 
 	if (slices.Contains(SIGNS, ctx.Read())) {
 		ctx.Next()
@@ -21,7 +21,7 @@ func (ii IntegerInterpreter) Interpret(ctx *Context) bool {
 
 	if (!ctx.IsEnd() && slices.Contains(ZERO, ctx.Read())) {
 		ctx.Next()
-		return true
+		return ctx.pos
 	}
 	return ii.natruralInterpreter.Interpret(ctx)
 } 

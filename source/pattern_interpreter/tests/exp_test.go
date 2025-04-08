@@ -11,8 +11,8 @@ func Test1ExpInterpreter(t *testing.T) {
 	ExpInterpreter := pi.NewExpInterpreter()
 	for _, exp := range exps {
 		ctx := pi.NewContext(exp)
-		res := ExpInterpreter.Interpret(ctx)
-		if (res) {
+		pos := ExpInterpreter.Interpret(ctx)
+		if pos != -1 && pos == ctx.Len() {
 			continue
 		}
 		t.Error()
@@ -25,8 +25,8 @@ func Test2ExpInterpreter(t *testing.T) {
 	ExpInterpreter := pi.NewExpInterpreter()
 	for _, error := range errors {
 		ctx := pi.NewContext(error)
-		res := ExpInterpreter.Interpret(ctx)
-		if (res) {
+		pos := ExpInterpreter.Interpret(ctx)
+		if pos == ctx.Len() {
 			t.Errorf("Error contex: %s", error)
 		}
 	}

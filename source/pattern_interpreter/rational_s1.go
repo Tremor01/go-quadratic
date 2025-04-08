@@ -14,14 +14,14 @@ func NewRationalShortFirstInterpreter() RationalShortFirstInterpreter {
 	}
 }
 
-func (interpreter RationalShortFirstInterpreter) Interpret(ctx *Context) bool {
-	if (ctx.IsEnd()) {return false}
+func (interpreter RationalShortFirstInterpreter) Interpret(ctx Context) int {
+	if (ctx.IsEnd()) {return -1}
 	
 	if (slices.Contains(SIGNS, ctx.Read())) {ctx.Next()}
 
-	if (ctx.IsEnd()) {return false}
+	if (ctx.IsEnd()) {return -1}
 	if (!slices.Contains(POINT, ctx.Read())) {
-		return false
+		return -1
 	}
 	ctx.Next()
 	return interpreter.digitsInterpreter.Interpret(ctx)

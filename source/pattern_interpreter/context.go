@@ -43,19 +43,33 @@ var INF = []rune {'i', 'n', 'f'}
 type Context struct {
 	row []rune
 	pos int
-	str string
 }
 
-func NewContext(row string) *Context {
-	return &Context{
+func NewContext(row string) Context {
+	return Context{
 		row: []rune(row), 
 		pos: 0,
-		str: row,
 	}
+}
+
+func (c Context) GetPos() int {
+	return c.pos
+}
+
+func (c Context) SetPos(pos int) Context {
+	return Context{pos: pos, row: c.row}
+}
+
+func (c Context) Len() int {
+	return len(c.row)
 }
 
 func (c Context) Read() rune {
 	return c.row[c.pos]
+}
+
+func (c Context) ReadAt(pos int) rune {
+    return c.row[pos]
 }
 
 func (c Context) IsEnd() bool {
@@ -64,12 +78,4 @@ func (c Context) IsEnd() bool {
 
 func (c *Context) Next() {
 	c.pos++
-}
-
-func (c Context) GetRow() string {
-	return c.str
-}
-
-func (c *Context) ResetPos() {
-	c.pos = 0
 }

@@ -14,13 +14,12 @@ func NewRationalShortSecondInterpreter() RationalShortSecondInterpreter {
 	}
 }
 
-func (interpreter RationalShortSecondInterpreter) Interpret(ctx *Context) bool {
-	var is_int bool = interpreter.integerInterpreter.Interpret(ctx)
-	if(ctx.IsEnd()) {return false}
+func (interpreter RationalShortSecondInterpreter) Interpret(ctx Context) int {
+	var pos int = interpreter.integerInterpreter.Interpret(ctx)
+	if pos == ctx.Len() {return -1}
 	
-	if (is_int && slices.Contains(POINT, ctx.Read())) {
-		ctx.Next()
-		return true
+	if pos > -1 && slices.Contains(POINT, ctx.ReadAt(pos)) {
+		return pos + 1
 	}
-	return false
+	return -1
 }
